@@ -14,5 +14,5 @@ def cli():
     """This is a management script for the feedfin backend."""
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     cli()

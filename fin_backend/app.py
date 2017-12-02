@@ -9,6 +9,6 @@ def create_app(config_filename):
     # db.init_app(app)
 
     from fin_backend.api.hello import hello
-    app.register_blueprint(hello, url_prefix='/api')
+    app.register_blueprint(hello, url_prefix="/api")
 
     return app
