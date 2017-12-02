@@ -1,3 +1,5 @@
 pip-tools
+pylint
+flake8
 pytest
 sphinx
