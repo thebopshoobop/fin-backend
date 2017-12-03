@@ -5,7 +5,7 @@ setup(
     version="0.0.1",
     packages=find_packages(),
     include_package_data=True,
-    install_requires=['flask'],
+    install_requires=['flask', 'flask_sqlalchemy', 'envparse'],
     entry_points='''
         [console_scripts]
         feedfin=fin_backend.manage:cli

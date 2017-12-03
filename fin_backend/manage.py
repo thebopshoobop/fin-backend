@@ -34,7 +34,7 @@ def _path_exists(path, path_name=""):
 
 @click.group(cls=flask.cli.FlaskGroup, create_app=_create_fin_app)
 @click.option("--env", "-e", default="venv",
-              help="Custom virtualenv directory. Defaults to `./venv`.")
+              help="Custom virtualenv directory. Defaults to `venv`.")
 @click.pass_context
 def cli(ctx, env):
     """This is a management script for the feedfin backend."""
