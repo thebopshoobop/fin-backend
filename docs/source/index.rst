@@ -1,9 +1,11 @@
-Welcome to fin-backend's documentation!
-=======================================
+Welcome to the fin-backend documentation!
+=========================================
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
+
+   api
+   cli
 
 .. include:: ../../README.rst
 

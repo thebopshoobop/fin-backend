@@ -1,0 +1,3 @@
+[MASTER]
+load-plugins=pylint.extensions.docparams,pylint.extensions.mccabe,pylint.extensions.overlapping_exceptions,pylint.extensions.redefined_variable_type
+ignore=docs/conf.py

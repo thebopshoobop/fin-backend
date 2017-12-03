@@ -1,7 +1,24 @@
+"""
+App factory
+===========
+"""
+
 from flask import Flask
 
 
 def create_app(config):
+    """Flask app factory function
+
+    Instantiates a new Flask app, loads the database connection and registers
+    blueprints.
+
+    Arguments:
+        config (:obj:`fin_backend.config.Config`): Config object.
+
+    Returns:
+        :obj:`flask.Flask`: Flask app instance.
+    """
+
     app = Flask(__name__)
     app.config.from_object(config)
 
