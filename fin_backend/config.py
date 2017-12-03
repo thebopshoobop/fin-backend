@@ -1,6 +1,6 @@
-"""
-App configuration classes
-=========================
+# pylint: disable=too-few-public-methods
+"""App configuration classes
+============================
 
 These classes establish the configuration settings for running the app in
 development, testing, and production mode. If you need to override them, you
@@ -16,8 +16,6 @@ from secrets import token_urlsafe
 from envparse import Env
 
 Env.read_envfile()
-
-# pylint: disable=too-few-public-methods
 
 
 class Config(object):
@@ -40,8 +38,8 @@ class Config(object):
 
     def __init__(self):
         config = Env(
-            FEEDFIN_DEBUG=dict(default=False),
-            FEEDFIN_TESTING=dict(default=False),
+            FEEDFIN_DEBUG=dict(cast=bool, default=False),
+            FEEDFIN_TESTING=dict(cast=bool, default=False),
             FEEDFIN_SECRET_KEY=dict(default=token_urlsafe()),
             DATABASE_URL=dict(default='sqlite:///:memory:')
         )

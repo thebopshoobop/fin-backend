@@ -1,6 +1,5 @@
-"""
-App factory
-===========
+"""App factory
+==============
 """
 
 from flask import Flask
