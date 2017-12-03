@@ -26,7 +26,8 @@ def _path_exists(path, path_name=""):
     path_name = path_name if path_name else path
     exists = pathlib.Path(path).exists()
     if not exists:
-        print(f"Unable to find ${path_name}. Have you built your virtualenv?")
+        click.echo(
+            f"Unable to find ${path_name}. Have you built your virtualenv?")
 
     return exists
 
