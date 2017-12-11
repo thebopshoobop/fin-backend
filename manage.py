@@ -10,6 +10,7 @@ import flask.cli
 
 from fin_backend.app import create_app
 from fin_backend.config import DevelopmentConfig
+from fin_backend.models import db
 
 
 def _create_fin_app(flask_script_info):  # pylint: disable=unused-argument
@@ -17,8 +18,7 @@ def _create_fin_app(flask_script_info):  # pylint: disable=unused-argument
 
 
 def _get_current_path():
-    current = pathlib.Path(__file__).parent.parent
-    current.resolve()
+    current = pathlib.Path(__file__).parent
     return current
 
 
@@ -63,6 +63,15 @@ def test(ctx):
 
     if _path_exists(pytest, "pytest"):
         subprocess.run([pytest])
+
+
+@cli.command()
+@click.pass_context
+def wipe(ctx):
+    """Resets the database."""
+    db.drop_all()
+    db.create_all()
+    db.session.commit()
 
 
 if __name__ == "__main__":

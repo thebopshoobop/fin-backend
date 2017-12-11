@@ -1,12 +1,8 @@
 # pylint: disable=missing-docstring,redefined-outer-name,wrong-import-position
 """Ensure that the configuration classes are properly configured."""
-import sys
 import os
-sys.path.insert(0, os.path.abspath(
-    os.path.join(os.path.dirname(__file__), '..')))
 
 import pytest  # noqa: E402
-
 
 import fin_backend.config as config  # noqa: E402
 
@@ -38,6 +34,7 @@ def environment():
         'FEEDFIN_TESTING': "true",
         'FEEDFIN_SECRET_KEY': "pineapples",
         'DATABASE_URL': "guavas",
+        'DATABASE_TEST_URL': "guavas"
     }
 
 

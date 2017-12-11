@@ -27,4 +27,4 @@ RUN /usr/src/py/bin/pip install --no-cache-dir -r requirements.txt
 ADD . /usr/src/app
 
 # run server
-CMD /usr/src/py/bin/python manage.py run -h 0.0.0.0
+CMD ["/usr/src/py/bin/python", "manage.py", "run", "-h", "0.0.0.0"]

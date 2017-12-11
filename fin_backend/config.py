@@ -74,4 +74,6 @@ class TestingConfig(Config):
 
     def __init__(self):
         super().__init__()
+        config = Env(DATABASE_TEST_URL=dict(default='sqlite:///:memory:'))
+        self.SQLALCHEMY_DATABASE_URI = config('DATABASE_TEST_URL')
         self.TESTING = True

@@ -8,6 +8,6 @@ setup(
     install_requires=['flask', 'flask_sqlalchemy', 'envparse'],
     entry_points='''
         [console_scripts]
-        feedfin=fin_backend.manage:cli
+        feedfin=manage:cli
     '''
 )
