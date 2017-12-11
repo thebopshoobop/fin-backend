@@ -1,11 +1,14 @@
-# pylint: disable=missing-docstring,redefined-outer-name
+# pylint: disable=missing-docstring,redefined-outer-name,wrong-import-position
 """Ensure that the configuration classes are properly configured."""
-
+import sys
 import os
+sys.path.insert(0, os.path.abspath(
+    os.path.join(os.path.dirname(__file__), '..')))
 
-import pytest
+import pytest  # noqa: E402
 
-import fin_backend.config as config
+
+import fin_backend.config as config  # noqa: E402
 
 
 @pytest.fixture
@@ -83,11 +86,6 @@ class TestConfigured:
         assert instance.SQLALCHEMY_TRACK_MODIFICATIONS is False
         assert instance.DEBUG is True
         assert instance.TESTING is True
-
-    @pytest.mark.parametrize('config_class', [base(), production()])
-    def test_production_defaults(self, config_class, environment, monkeypatch):
-        monkeypatch.setattr(os, "environ", environment)
-        instance = config_class()
 
     def test_test_defaults(self, testing, environment, monkeypatch):
         environment['DEBUG'] = False
