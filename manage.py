@@ -4,6 +4,7 @@
 
 import subprocess
 import pathlib
+import sys
 
 import click
 import flask.cli
@@ -17,62 +18,57 @@ def _create_fin_app(flask_script_info):  # pylint: disable=unused-argument
     return create_app(DevelopmentConfig())
 
 
-def _get_current_path():
-    current = pathlib.Path(__file__).parent
-    return current
+def _build_executable(bin_file):
+    return pathlib.Path(sys.base_exec_prefix).joinpath(f"bin/{bin_file}")
 
 
-def _path_exists(path, path_name=""):
-    path_name = path_name if path_name else path
-    exists = pathlib.Path(path).exists()
-    if not exists:
-        click.echo(
-            f"Unable to find {path_name}. Have you built your virtualenv?")
+def _execute(args):
+    if not pathlib.Path(args[0]).exists():
+        return click.echo(f"Unable to find {args[0]}.")
 
-    return exists
+    subprocess.run(args)
 
 
 @click.group(cls=flask.cli.FlaskGroup, create_app=_create_fin_app)
-@click.option("--env", "-e", default="venv",
-              help="Custom virtualenv directory. Defaults to `venv`.")
-@click.pass_context
-def cli(ctx, env):
+def cli():
     """This is a management script for the feedfin backend."""
-    ctx.obj.data['env'] = env
 
 
 @cli.command()
-@click.pass_context
-def doc(ctx):
+def doc():
     """Builds the Sphinx HTML docs."""
-    current = _get_current_path()
-    sphinx_build = current.joinpath(ctx.obj.data['env'], 'bin/sphinx-build')
+    # pylint: disable=no-member
+    current = pathlib.Path(__file__).parent.resolve()
     source_dir = current.joinpath('docs/source')
     build_dir = current.joinpath('docs/build')
-
-    if _path_exists(sphinx_build, "sphinx_build"):
-        subprocess.run([sphinx_build, source_dir, build_dir])
+    sphinx_build = _build_executable('sphinx-build')
+    _execute([sphinx_build, source_dir, build_dir])
 
 
 @cli.command()
-@click.pass_context
-def test(ctx):
+def test():
     """Runs the test suite."""
-    current = _get_current_path()
-    pytest = current.joinpath(ctx.obj.data['env'], 'bin/pytest')
-
-    if _path_exists(pytest, "pytest"):
-        subprocess.run([pytest])
+    pytest = _build_executable('pytest')
+    _execute([pytest])
 
 
 @cli.command()
-@click.pass_context
-def wipe(ctx):
+def lint():
+    """Runs the linter."""
+    pylint = _build_executable('pylint')
+    click.secho('Linting App', fg='blue', bold=True)
+    _execute([pylint, 'fin_backend'])
+    click.secho('Linting Tests', fg='blue', bold=True)
+    _execute([pylint, 'tests'])
+
+
+@cli.command()
+def wipe():
     """Resets the database."""
     db.drop_all()
     db.create_all()
-    db.session.commit()
+    db.session.commit()  # pylint: disable=no-member
 
 
 if __name__ == "__main__":
-    cli()  # pylint: disable=no-value-for-parameter
+    cli()

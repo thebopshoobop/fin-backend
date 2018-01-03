@@ -1,10 +1,10 @@
-# pylint: disable=missing-docstring,redefined-outer-name,wrong-import-position
+# pylint: disable=missing-docstring,redefined-outer-name,no-self-use
 """Ensure that the configuration classes are properly configured."""
 import os
 
-import pytest  # noqa: E402
+import pytest
 
-import fin_backend.config as config  # noqa: E402
+import fin_backend.config as config
 
 
 @pytest.fixture
