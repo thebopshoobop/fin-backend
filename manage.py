@@ -60,6 +60,8 @@ def lint():
     _execute([pylint, 'fin_backend'])
     click.secho('Linting Tests', fg='blue', bold=True)
     _execute([pylint, 'tests'])
+    click.secho('Linting CLI', fg='blue', bold=True)
+    _execute([pylint, 'manage.py'])
 
 
 @cli.command()
